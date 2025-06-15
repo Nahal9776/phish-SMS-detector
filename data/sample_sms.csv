@@ -1,1 +1,6 @@
-
+id,message,label
+1,"Your bank account has been suspended. Click here: http://scamlink.com",phishing
+2,"Meeting at 3pm today.",legit
+3,"Congratulations! You've won. Visit bit.ly/win",phishing
+4,"Your OTP code is 2847",legit
+5,"Please verify your identity immediately",phishing
