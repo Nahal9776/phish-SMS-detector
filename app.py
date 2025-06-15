@@ -1,5 +1,17 @@
+from flask import jsonify
 from flask import Flask, render_template, request
 from detector.classify import is_phishing
+
+@app.route("/api", methods=["POST"])
+def api_check():
+    data = request.get_json()
+    sms = data.get("sms", "")
+    result = is_phishing(sms)
+    return jsonify({
+        "message": sms,
+        "is_phishing": result,
+        "label": "phishing" if result else "safe"
+    })
 
 app = Flask(__name__)
 
