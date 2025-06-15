@@ -1,15 +1,16 @@
+from flask import Flask, render_template, request
 from detector.classify import is_phishing
 
-print("Phish SMS Detector")
-print("-------------------")
+app = Flask(__name__)
 
-while True:
-    msg = input("Enter SMS text (or 'q' to quit): ")
-    if msg.lower() == 'q':
-        break
+@app.route("/", methods=["GET", "POST"])
+def index():
+    result = None
+    if request.method == "POST":
+        sms = request.form.get("sms")
+        if sms:
+            result = "Phishing ⚠️" if is_phishing(sms) else "Safe ✅"
+    return render_template("index.html", result=result)
 
-    if is_phishing(msg):
-        print("⚠️  This message is likely a phishing attempt.")
-    else:
-        print("✅  This message appears to be safe.")
-
+if __name__ == "__main__":
+    app.run(debug=True)
